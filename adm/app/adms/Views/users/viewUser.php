@@ -1,4 +1,4 @@
 <?php
 
-echo "VIEW - Página visualizar usuário!<br>";
-var_dump($this->data);
+//echo "VIEW - Página visualizar usuário!<br>";
+//var_dump($this->data);

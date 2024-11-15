@@ -3,9 +3,12 @@
     if (isset($this->data['form']))
         $valorForm = $this->data['form'];
 
+    //Criptografar a senha
+echo password_hash("123456a", PASSWORD_DEFAULT);
+
 ?>
 <h1>Área Restrita</h1>
-<form method="POST" action=""> 
+<form method="POST" action="">
 
     <label>Usuário: </label>
     <input type="text" name="user" id="user" placeholder="Digite o usuário" value="<?php if (isset($valorForm['user'])) echo $valorForm['user']; ?>"><br><br>

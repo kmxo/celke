@@ -17,14 +17,14 @@ class AdmsConn
     public function connectDb(): object
     {
        try {
-           //Conexao
+           // Conexao
            $this->connect = new PDO("mysql:host={$this->host};port={$this->port};dbname=" .
             $this->dbname, $this->user, $this->pass);
 
             return $this->connect;
 
        } catch (PDOException $err) {
-            die("Erro - 002: Por favor tente novamente. Caso o problema persista, entre em contato o administrador " . EMAILADM);
+             die("Erro - 002: Por favor tente novamente. Caso o problema persista, entre em contato o administrador " . EMAILADM);
        }
 
     }

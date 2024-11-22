@@ -5,7 +5,7 @@ namespace Core;
 /**
  * Configurações básicas do site.
  *
- * @author kmxo <camacho.technicaltrainer@gmail.com>
+ * @author Cesar <cesar@celke.com.br>
  */
 
 abstract class Config
@@ -16,7 +16,7 @@ abstract class Config
      * Página principal do projeto.
      * Credenciais de acesso ao banco de dados
      * E-mail do administrador.
-     *
+     * 
      * @return void
      */
     protected function configAdm(): void
@@ -32,8 +32,8 @@ abstract class Config
         define('USER', 'root');
         define('PASS', '');
         define('DBNAME', 'celke');
-        define('PORT', '3306');
+        define('PORT', 3306);
 
-        define('EMAILADM', 'camacho.technicaltrainer@gmail.com');
+        define('EMAILADM', 'cesar@celke.com.br');
     }
 }

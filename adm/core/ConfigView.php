@@ -30,7 +30,7 @@ class ConfigView
         if(file_exists('app/' .$this->nameView . '.php')){
             include 'app/' .$this->nameView . '.php';
         }else{
-            die("Erro: Por favor tente novamente. Caso o problema persista, entre em contato o administrador " . EMAILADM);
+            die("Erro - 002: Por favor tente novamente. Caso o problema persista, entre em contato o administrador " . EMAILADM);
         }
     }
 }

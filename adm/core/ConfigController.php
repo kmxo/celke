@@ -145,8 +145,11 @@ class ConfigController extends Config
         //$this->urlController = ucwords($this->urlController);
         //echo "Carregar Pagina corrigida: {$this->urlController}<br>";
 
-        $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
-        $classePage = new $this->classLoad();
-        $classePage->{$this->urlMetodo}();
+        //$this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
+        //$classePage = new $this->classLoad();
+        //$classePage->{$this->urlMetodo}();
+
+        $loadPgAdm = new \Core\CarregarPgAdm();
+        $loadPgAdm->loadPage($this->urlController, $this->urlMetodo, $this->urlParameter);
     }
 }

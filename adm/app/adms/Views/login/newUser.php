@@ -22,7 +22,7 @@ if(isset($_SESSION['msg'])){
     }
     ?>
     <label>Nome: </label>
-    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php echo $name; ?>"><br><br>
+    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php echo $name; ?>" required><br><br>
     
     <?php
     $email = "";
@@ -31,7 +31,7 @@ if(isset($_SESSION['msg'])){
     }
     ?>
     <label>E-mail: </label>
-    <input type="text" name="email" id="email" placeholder="Digite o seu melhor e-mail" value="<?php echo $email; ?>"><br><br>
+    <input type="text" name="email" id="email" placeholder="Digite o seu melhor e-mail" value="<?php echo $email; ?>" required><br><br>
 
     <?php
     $password = "";
@@ -40,7 +40,7 @@ if(isset($_SESSION['msg'])){
     }
     ?>
     <label>Senha: </label>
-    <input type="password" name="password" id="password" placeholder="Digite a senha" value="<?php echo $password; ?>"><br><br>
+    <input type="password" name="password" id="password" placeholder="Digite a senha" value="<?php echo $password; ?>" required><br><br>
 
     <button type="submit" name="SendNewUser" value="Cadastrar">Cadastrar</button>
 </form>

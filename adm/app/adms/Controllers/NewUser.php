@@ -26,7 +26,7 @@ class NewUser
         $this->dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);        
 
         if(!empty($this->dataForm['SendNewUser'])){
-            var_dump($this->dataForm);
+            //var_dump($this->dataForm);
             $createNewUser = new \App\adms\Models\AdmsNewUser();
             $createNewUser->create($this->dataForm);
             if($createNewUser->getResult()){

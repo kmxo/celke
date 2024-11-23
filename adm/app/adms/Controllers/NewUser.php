@@ -27,6 +27,7 @@ class NewUser
 
         if(!empty($this->dataForm['SendNewUser'])){
             //var_dump($this->dataForm);
+            unset($this->dataForm['SendNewUser']);
             $createNewUser = new \App\adms\Models\AdmsNewUser();
             $createNewUser->create($this->dataForm);
             if($createNewUser->getResult()){

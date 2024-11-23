@@ -12,8 +12,9 @@ if(isset($_SESSION['msg'])){
     unset($_SESSION['msg']);
 }
 ?>
+<span id="msg"></span>
 
-<form method="POST" action="">
+<form method="POST" action="" id="form-new-user">    
     <?php
     $name = "";
     if (isset($valorForm['name'])) {
@@ -41,6 +42,6 @@ if(isset($_SESSION['msg'])){
     <label>Senha: </label>
     <input type="password" name="password" id="password" placeholder="Digite a senha" value="<?php echo $password; ?>"><br><br>
 
-    <input type="submit" name="SendNewUser" value="Cadastrar">
+    <button type="submit" name="SendNewUser" value="Cadastrar">Cadastrar</button>
 </form>
 <p><a href="<?php echo URLADM; ?>">Clique aqui</a> para acessar</p>

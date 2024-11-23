@@ -18,6 +18,9 @@ class CarregarPgAdm
     /** @var string $classLoad Controller que deve ser carregada */
     private string $classLoad;
 
+    private array $listPgPublic;
+    private array $listPgPrivate;
+
 
     /**
      * Verificar se existe a classe
@@ -32,7 +35,10 @@ class CarregarPgAdm
         $this->urlMetodo = $urlMetodo;
         $this->urlParameter = $urlParameter;
 
-        $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
+        //unset($_SESSION['user_id']);
+        
+        $this->pgPublic();
+
         if (class_exists($this->classLoad)) {
             $this->loadMetodo();
         } else {
@@ -56,6 +62,54 @@ class CarregarPgAdm
             $classLoad->{$this->urlMetodo}();
         } else {
             die("Erro - 004: Por favor tente novamente. Caso o problema persista, entre em contato o administrador " . EMAILADM);
+        }
+    }
+
+    /**
+     * Verificar se a página é pública e carregar a mesma
+     *
+     * @return void
+     */
+    private function pgPublic(): void
+    {
+        $this->listPgPublic = ["Login", "Erro"];
+
+        if (in_array($this->urlController, $this->listPgPublic)) {
+            $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
+        } else {
+            $this->pgPrivate();
+        }
+    }
+/**
+     * Verificar se a página é privada e chamar o método para verificar se o usuário está logado
+     *
+     * @return void
+     */
+    private function pgPrivate():void
+    {
+        $this->listPgPrivate = ["Dashboard", "Users"];
+        if(in_array($this->urlController, $this->listPgPrivate)){
+            $this->verifyLogin();
+        }else{
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Página não encontrada!</p>";
+            $urlRedirect = URLADM . "login/index";
+            header("Location: $urlRedirect");
+        }
+    }
+
+    /**
+     * Verificar se o usuário está logado e carregar a página
+     *
+     * @return void
+     */
+    private function verifyLogin(): void
+    {
+        if((isset($_SESSION['user_id'])) and (isset($_SESSION['user_name']))  and (isset($_SESSION['user_email'])) ){
+            $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
+        }else{
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Para acessar a página realize o login!</p>";
+            $urlRedirect = URLADM . "login/index";
+            header("Location: $urlRedirect");
         }
     }
 

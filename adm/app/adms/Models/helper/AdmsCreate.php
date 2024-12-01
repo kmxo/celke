@@ -50,8 +50,6 @@ class AdmsCreate extends AdmsConn
     {
         $this->table = $table;
         $this->data = $data;
-        //var_dump($this->table);
-        //var_dump($this->data);
         $this->exeReplaceValues();        
     }
 
@@ -63,11 +61,8 @@ class AdmsCreate extends AdmsConn
     private function exeReplaceValues(): void
     {
         $coluns = implode(', ', array_keys($this->data));
-        //var_dump($coluns);
         $values = ':' . implode(', :', array_keys($this->data));
-        //var_dump($values);
         $this->query = "INSERT INTO {$this->table} ($coluns) VALUES ($values)";
-        //var_dump($this->query);
         $this->exeInstruction();
     }
 

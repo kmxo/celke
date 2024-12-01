@@ -2,16 +2,37 @@
 
 namespace App\adms\Models\helper;
 
+/**
+ * Classe genérica para validar se os campos estão preenchidos
+ *
+ * @author Celke
+ */
 class AdmsValEmptyField
 {
+    /** @var array|null $data Recebe o array de dados que deve ser validado */
     private array|null $data;
+
+    /** @var bool $result Recebe true quando executar o processo com sucesso e false quando houver erro */
     private bool $result;
 
-    function getResult()
+    /**
+     * @return bool Retorna true quando executar o processo com sucesso e false quando houver erro
+     */
+    function getResult(): bool
     {
         return $this->result;
     }
 
+    /** 
+     * Validar se todos os campos estão preenchidos.
+     * Recebe o array de dados que deve ser validado.
+     * Retorna TRUE quando todos os campos estão preenchidos.
+     * Retorna FALSE quando algum campo está vazio.
+     * 
+     * @param array $data Recebe o array de dados que deve ser validado.
+     * 
+     * @return void
+     */
     public function valField(array $data = null): void
     {
         $this->data = $data;

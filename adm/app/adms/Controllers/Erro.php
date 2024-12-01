@@ -19,7 +19,6 @@ class Erro
      */
     public function index():void
     {
-        echo "Pagina de erro<br>";
 
         $this->data = "<p style='color: #f00;'>Página não encontrada!</p>";
 

@@ -14,13 +14,16 @@ class Dashboard
 
     /**
      * Instantiar a classe responsavel em carregar a View e enviar os dados para View.
-     * 
+     *
      * @return void
      */
     public function index():void
     {
-        $this->data = "Bem vindo";
+        session_start();
+        //echo "Bem vindo ao Dashboard Index";
+        //die;
 
+        $this->data = "Bem vindo";
         $loadView = new \Core\ConfigView("adms/Views/dashboard/dashboard", $this->data);
         $loadView->loadView();
     }

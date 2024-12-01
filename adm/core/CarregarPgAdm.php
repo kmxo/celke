@@ -36,7 +36,7 @@ class CarregarPgAdm
         $this->urlParameter = $urlParameter;
 
         //unset($_SESSION['user_id']);
-        
+
         $this->pgPublic();
 
         if (class_exists($this->classLoad)) {
@@ -104,9 +104,17 @@ class CarregarPgAdm
      */
     private function verifyLogin(): void
     {
+        session_start();
         if((isset($_SESSION['user_id'])) and (isset($_SESSION['user_name']))  and (isset($_SESSION['user_email'])) ){
             $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
         }else{
+
+            //echo "<br>Entrei aqui verifyLogin..";
+            //echo "<br>user id: ".$_SESSION['user_id'];
+            //echo "<br>user name: ".$_SESSION['user_name'];
+            //echo "<br>user email: ".$_SESSION['user_email'];
+            //die;
+
             $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Para acessar a página realize o login!</p>";
             $urlRedirect = URLADM . "login/index";
             header("Location: $urlRedirect");
@@ -129,7 +137,7 @@ class CarregarPgAdm
         $this->urlSlugController = str_replace("-", " ", $this->urlSlugController);
         // Converter a primeira letra de cada palavra para maiusculo
         $this->urlSlugController = ucwords($this->urlSlugController);
-        // Retirar espaco em branco        
+        // Retirar espaco em branco
         $this->urlSlugController = str_replace(" ", "", $this->urlSlugController);
         //var_dump($this->urlSlugController);
         return $this->urlSlugController;

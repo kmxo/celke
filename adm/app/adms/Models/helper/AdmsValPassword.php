@@ -52,6 +52,8 @@ class AdmsValPassword
 
     private function valValuePassword(): void
     {
+        //Existem numeros, existem letras, tem no minimo 6 caracteres
+        //Permite alguns caracteres especiais @#$%;*
         if(preg_match('/^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-@#$%;*]{6,}$/', $this->password)){
             $this->result = true;
         }else{

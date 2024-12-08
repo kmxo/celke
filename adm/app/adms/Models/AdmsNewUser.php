@@ -23,14 +23,14 @@ class AdmsNewUser
         return $this->result;
     }
 
-    /** 
+    /**
      * Recebe os valores do formulário.
-     * Instancia o helper "AdmsValEmptyField" para verificar se todos os campos estão preenchidos 
+     * Instancia o helper "AdmsValEmptyField" para verificar se todos os campos estão preenchidos
      * Verifica se todos os campos estão preenchidos e instancia o método "valInput" para validar os dados dos campos
      * Retorna FALSE quando algum campo está vazio
-     * 
+     *
      * @param array $data Recebe as informações do formulário
-     * 
+     *
      * @return void
      */
     public function create(array $data = null)
@@ -46,12 +46,12 @@ class AdmsNewUser
         }
     }
 
-    /** 
+    /**
      * Instanciar o helper "AdmsValEmail" para verificar se o e-mail válido
      * Instanciar o helper "AdmsValEmailSingle" para verificar se o e-mail não está cadastrado no banco de dados, não permitido cadastro com e-mail duplicado
-     * Instanciar o método "add" quando não houver nenhum erro de preenchimento 
+     * Instanciar o método "add" quando não houver nenhum erro de preenchimento
      * Retorna FALSE quando houve algum erro
-     * 
+     *
      * @return void
      */
     private function valInput(): void
@@ -62,18 +62,21 @@ class AdmsNewUser
         $valEmailSingle = new \App\adms\Models\helper\AdmsValEmailSingle();
         $valEmailSingle->validateEmailSingle($this->data['email']);
 
-        if (($valEmail->getResult()) and ($valEmailSingle->getResult())) {
+        $valPassword = new \App\adms\Models\helper\AdmsValPassword();
+        $valPassword->validatePassword($this->data['password']);
+
+        if (($valEmail->getResult()) and ($valEmailSingle->getResult()) and ($valPassword->getResult())) {
             $this->add();
         } else {
             $this->result = false;
         }
     }
 
-    /** 
+    /**
      * Cadastrar usuário no banco de dados
      * Retorna TRUE quando cadastrar o usuário com sucesso
      * Retorna FALSE quando não cadastrar o usuário
-     * 
+     *
      * @return void
      */
     private function add(): void

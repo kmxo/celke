@@ -43,7 +43,7 @@ class AdmsLogin
         $this->data = $data;
 
         $viewUser = new \App\adms\Models\helper\AdmsRead();
-        $viewUser->fullRead("SELECT id, name, nickname, email, password, image FROM adms_users WHERE user =:user LIMIT :limit", "user={$this->data['user']}&limit=1");
+        $viewUser->fullRead("SELECT id, name, nickname, email, password, image FROM adms_users WHERE user =:user OR email =:email LIMIT :limit", "user={$this->data['user']}&email={$this->data['user']}&limit=1");
 
         $this->resultBd = $viewUser->getResult();
         if($this->resultBd){

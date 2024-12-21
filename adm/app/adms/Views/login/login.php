@@ -1,7 +1,4 @@
 <?php
-
-//session_start();
-
 if (isset($this->data['form'])) {
     $valorForm = $this->data['form'];
 }

@@ -23,6 +23,15 @@ class AdmsValPassword
         return $this->result;
     }
 
+    /** 
+     * Verificar se a senha possui aspas simples " ' ", retorna erro.
+     * Verificar se a senha possui espaço em branco " ", retorna erro.
+     * Instancia o método para validar a quantidade de caracteres a senha possui
+     * 
+     * @param string $password Recebe a senha que deve ser validada.
+     * 
+     * @return void
+     */
     public function validatePassword(string $password): void
     {
         $this->password = $password;
@@ -40,6 +49,12 @@ class AdmsValPassword
         }
     }
 
+    /** 
+     * Verificar se a senha possui menos de 6 caracteres, retorna erro.
+     * Instancia o método para validar os caracteres que a senha possui
+     * 
+     * @return void
+     */
     private function valExtensPassword(): void
     {
         if (strlen($this->password) < 6) {
@@ -50,10 +65,13 @@ class AdmsValPassword
         }
     }
 
+    /** 
+     * Verificar se a senha possui letra e números na senha.
+     * 
+     * @return void
+     */
     private function valValuePassword(): void
     {
-        //Existem numeros, existem letras, tem no minimo 6 caracteres
-        //Permite alguns caracteres especiais @#$%;*
         if(preg_match('/^(?=.*[0-9])(?=.*[a-zA-Z])[a-zA-Z0-9-@#$%;*]{6,}$/', $this->password)){
             $this->result = true;
         }else{

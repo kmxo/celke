@@ -35,8 +35,8 @@ class AdmsValEmailSingle
     /** 
      * Validar o e-mail único.
      * Recebe o e-mail que deve ser verificado se o mesmo já está cadastrado no banco de dados.
-     * Acessa o IF quando estiver validado o e-mail para o formulário editar.
-     * Acessa o ELSE quando estiver validado o e-mail para o formulário cadastrar.
+     * Acessa o IF quando estiver validando o e-mail para o formulário editar.
+     * Acessa o ELSE quando estiver validando o e-mail para o formulário cadastrar.
      * Retorna TRUE quando não encontrar outro nenhum usuário utilizando o e-mail em questão.
      * Retorna FALSE quando o e-mail já está sendo utilizado por outro usuário.
      * 

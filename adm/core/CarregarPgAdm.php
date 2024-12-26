@@ -36,7 +36,7 @@ class CarregarPgAdm
         $this->urlParameter = $urlParameter;
 
         //unset($_SESSION['user_id']);
-        
+
         $this->pgPublic();
 
         if (class_exists($this->classLoad)) {
@@ -87,7 +87,7 @@ class CarregarPgAdm
      */
     private function pgPrivate():void
     {
-        $this->listPgPrivate = ["Dashboard", "ListUsers", "ViewUsers", "AddUsers"];
+        $this->listPgPrivate = ["Dashboard", "ListUsers", "ViewUsers", "AddUsers", "EditUsers"];
         if(in_array($this->urlController, $this->listPgPrivate)){
             $this->verifyLogin();
         }else{
@@ -129,7 +129,7 @@ class CarregarPgAdm
         $this->urlSlugController = str_replace("-", " ", $this->urlSlugController);
         // Converter a primeira letra de cada palavra para maiusculo
         $this->urlSlugController = ucwords($this->urlSlugController);
-        // Retirar espaco em branco        
+        // Retirar espaco em branco
         $this->urlSlugController = str_replace(" ", "", $this->urlSlugController);
         //var_dump($this->urlSlugController);
         return $this->urlSlugController;

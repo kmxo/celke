@@ -39,19 +39,39 @@ class AdmsLogin
      */
     public function login(array $data = null): void
     {
-        $this->data = $data; 
+        $this->data = $data;
 
         $viewUser = new \App\adms\Models\helper\AdmsRead();
-        $viewUser->fullRead("SELECT id, name, nickname, email, password, image FROM adms_users WHERE user =:user OR email =:email LIMIT :limit", "user={$this->data['user']}&email={$this->data['user']}&limit=1");
+        $viewUser->fullRead("SELECT id, name, nickname, email, password, image, adms_sits_user_id FROM adms_users WHERE user =:user OR email =:email LIMIT :limit", "user={$this->data['user']}&email={$this->data['user']}&limit=1");
 
         $this->resultBd = $viewUser->getResult();
-        if($this->resultBd){
-            $this->valPassword();
-        }else{
+        if ($this->resultBd) {
+            $this->valEmailPerm();
+        } else {
             $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Usuário ou a senha incorreta!</p>";
             $this->result = false;
         }
     }
+
+    private function valEmailPerm(): void
+    {
+        if ($this->resultBd[0]['adms_sits_user_id'] == 1) {
+            $this->valPassword();
+        } elseif ($this->resultBd[0]['adms_sits_user_id'] == 3) {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Necessário confirmar o e-mail, solicite novo link <a href='".URLADM."new-conf-email/index'>Clique aqui</a>!</p>";
+            $this->result = false;
+        } elseif ($this->resultBd[0]['adms_sits_user_id'] == 5) {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: E-mail descadastrado, entre em contato com a empresa!</p>";
+            $this->result = false;
+        } elseif ($this->resultBd[0]['adms_sits_user_id'] == 2) {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: E-mail inativo, entre em contato com a empresa!</p>";
+            $this->result = false;
+        } else {
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: E-mail inativo, entre em contato com a empresa!</p>";
+            $this->result = false;
+        }
+    }
+
 
     /** 
      * Compara a senha enviado pelo usuário com a senha que está salva no banco de dados
@@ -62,14 +82,14 @@ class AdmsLogin
      */
     private function valPassword(): void
     {
-        if(password_verify($this->data['password'], $this->resultBd[0]['password'])){
+        if (password_verify($this->data['password'], $this->resultBd[0]['password'])) {
             $_SESSION['user_id'] = $this->resultBd[0]['id'];
             $_SESSION['user_name'] = $this->resultBd[0]['name'];
             $_SESSION['user_nickname'] = $this->resultBd[0]['nickname'];
             $_SESSION['user_email'] = $this->resultBd[0]['email'];
             $_SESSION['user_image'] = $this->resultBd[0]['image'];
             $this->result = true;
-        }else{
+        } else {
             $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Usuário ou a senha incorreta!</p>";
             $this->result = false;
         }

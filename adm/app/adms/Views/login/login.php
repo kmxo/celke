@@ -25,7 +25,7 @@ if(isset($_SESSION['msg'])){
     }
     ?>
     <label>Usuário: </label>
-    <input type="text" name="user" id="user" placeholder="Digite o usuário" value="<?php echo $user; ?>"><br><br>
+    <input type="text" name="user" id="user" placeholder="Digite o usuário" value="<?php echo $user; ?>" required><br><br>
 
     <?php
     $password = "";
@@ -34,11 +34,11 @@ if(isset($_SESSION['msg'])){
     }
     ?>
     <label>Senha: </label>
-    <input type="password" name="password" id="password" placeholder="Digite a senha" value="<?php echo $password; ?>"><br><br>
+    <input type="password" name="password" id="password" placeholder="Digite a senha" autocomplete="on" value="<?php echo $password; ?>" required><br><br>
 
     <button type="submit" name="SendLogin" value="Acessar">Acessar</button>
 </form>
-<p><a href="<?php echo URLADM; ?>new-user/index">Cadastrar</a></p>
+<p><a href="<?php echo URLADM; ?>new-user/index">Cadastrar</a> - <a href="<?php echo URLADM; ?>recover-password/index">Esqueceu a senha?</a></p>
 
 Usuário: cesar@celke.com.br<br>
 Senha: 123456a

@@ -3,10 +3,10 @@
 namespace App\adms\Controllers;
 
 /**
- * Controller da página novo usuário
+ * Controller da página cadastrar novo usuário
  * @author Cesar <cesar@celke.com.br>
  */
-class NewUser
+class AddUsers
 {
 
     /** @var array|string|null $data Recebe os dados que devem ser enviados para VIEW */
@@ -17,41 +17,40 @@ class NewUser
 
     /**
      * Instantiar a classe responsável em carregar a View e enviar os dados para View.
-     * Quando o usuário clicar no botão "cadastrar" do formulário da página novo usuário. Acessa o IF e instância a classe "AdmsNewUser" responsável em cadastrar o usuário no banco de dados.
-     * Usuário cadastrado com sucesso, redireciona para a página a página de login.
+     * Quando o usuário clicar no botão "cadastrar" do formulário da página novo usuário. Acessa o IF e instância a classe "AdmsAddUsers" responsável em cadastrar o usuário no banco de dados.
+     * Usuário cadastrado com sucesso, redireciona para a página listar registros.
      * Senão, instância a classe responsável em carregar a View e enviar os dados para View.
      * 
      * @return void
      */
     public function index(): void
     {
-
         $this->dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);        
 
-        if(!empty($this->dataForm['SendNewUser'])){
+        if(!empty($this->dataForm['SendAddUser'])){
             //var_dump($this->dataForm);
-            unset($this->dataForm['SendNewUser']);
-            $createNewUser = new \App\adms\Models\AdmsNewUser();
-            $createNewUser->create($this->dataForm);
-            if($createNewUser->getResult()){
-                $urlRedirect = URLADM;
+            unset($this->dataForm['SendAddUser']);
+            $createUser = new \App\adms\Models\AdmsAddUsers();
+            $createUser->create($this->dataForm);
+            if($createUser->getResult()){
+                $urlRedirect = URLADM . "list-users/index";
                 header("Location: $urlRedirect");
             }else{
                 $this->data['form'] = $this->dataForm;
-                $this->viewNewUser();
-            }           
+                $this->viewAddUser();
+            }   
         }else{
-            $this->viewNewUser();
-        }        
+            $this->viewAddUser();
+        }  
     }
 
     /**
      * Instantiar a classe responsável em carregar a View e enviar os dados para View.
      * 
      */
-    private function viewNewUser(): void
+    private function viewAddUser(): void
     {
-        $loadView = new \Core\ConfigView("adms/Views/login/newUser", $this->data);
-        $loadView->loadViewLogin();
+        $loadView = new \Core\ConfigView("adms/Views/users/addUser", $this->data);
+        $loadView->loadView();
     }
 }

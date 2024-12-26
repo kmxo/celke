@@ -39,6 +39,6 @@ class Login
         }
 
         $loadView = new \Core\ConfigView("adms/Views/login/login", $this->data);
-        $loadView->loadView();
+        $loadView->loadViewLogin();
     }
 }

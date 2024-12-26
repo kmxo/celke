@@ -4,7 +4,7 @@ if (isset($this->data['form'])) {
 }
 ?>
 
-<h1>Novo Usuário</h1>
+<h1>Cadastrar Usuário</h1>
 
 <?php
 if(isset($_SESSION['msg'])){
@@ -14,7 +14,7 @@ if(isset($_SESSION['msg'])){
 ?>
 <span id="msg"></span>
 
-<form method="POST" action="" id="form-new-user">    
+<form method="POST" action="" id="form-add-user">    
     <?php
     $name = "";
     if (isset($valorForm['name'])) {
@@ -32,6 +32,15 @@ if(isset($_SESSION['msg'])){
     ?>
     <label>E-mail: </label>
     <input type="email" name="email" id="email" placeholder="Digite o seu melhor e-mail" value="<?php echo $email; ?>" required><br><br>
+    
+    <?php
+    $user = "";
+    if (isset($valorForm['user'])) {
+        $user = $valorForm['user'];
+    }
+    ?>
+    <label>Usuário: </label>
+    <input type="text" name="user" id="user" placeholder="Digite o usuário para acessar o administrativo" value="<?php echo $user; ?>" required><br><br>
 
     <?php
     $password = "";
@@ -43,6 +52,6 @@ if(isset($_SESSION['msg'])){
     <input type="password" name="password" id="password" placeholder="Digite a senha" onkeyup="passwordStrength()" autocomplete="on" value="<?php echo $password; ?>" required>
     <span id="msgViewStrength"><br><br></span>
 
-    <button type="submit" name="SendNewUser" value="Cadastrar">Cadastrar</button>
+    <button type="submit" name="SendAddUser" value="Cadastrar">Cadastrar</button>
 </form>
 <p><a href="<?php echo URLADM; ?>">Clique aqui</a> para acessar</p>

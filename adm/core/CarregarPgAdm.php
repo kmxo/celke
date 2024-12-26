@@ -59,7 +59,7 @@ class CarregarPgAdm
     {
         $classLoad = new $this->classLoad();
         if (method_exists($classLoad, $this->urlMetodo)) {
-            $classLoad->{$this->urlMetodo}();
+            $classLoad->{$this->urlMetodo}($this->urlParameter);
         } else {
             die("Erro - 004: Por favor tente novamente. Caso o problema persista, entre em contato o administrador " . EMAILADM);
         }
@@ -72,7 +72,7 @@ class CarregarPgAdm
      */
     private function pgPublic(): void
     {
-        $this->listPgPublic = ["Login", "Erro", "Logout", "NewUser"];
+        $this->listPgPublic = ["Login", "Erro", "Logout", "NewUser", "ConfEmail", "NewConfEmail", "RecoverPassword", "UpdatePassword"];
 
         if (in_array($this->urlController, $this->listPgPublic)) {
             $this->classLoad = "\\App\\adms\\Controllers\\" . $this->urlController;
@@ -87,7 +87,7 @@ class CarregarPgAdm
      */
     private function pgPrivate():void
     {
-        $this->listPgPrivate = ["Dashboard", "Users"];
+        $this->listPgPrivate = ["Dashboard", "ListUsers", "ViewUsers", "AddUsers"];
         if(in_array($this->urlController, $this->listPgPrivate)){
             $this->verifyLogin();
         }else{

@@ -19,11 +19,17 @@ class AdmsSendEmail
     /** @var array $dataInfoEmail Receber as credenciais do e-mail */
     private array $dataInfoEmail;
 
+    /** @var array|null $resultBd Recebe os registros do banco de dados */
+    private array|null $resultBd;
+
     /** @var bool $result Recebe true quando executar o processo com sucesso e false quando houver erro */
     private bool $result;
 
     /** @var string $fromEmail Recebe o e-mail do remetente */
-    private string $fromEmail;
+    private string $fromEmail = EMAILADM;
+
+    /** @var int $optionConfEmail Recebe o id do e-mail que será utilizado para enviar e-mail */
+    private int $optionConfEmail;
 
     /**
      * @return bool Retorna true quando executar o processo com sucesso e false quando houver erro
@@ -33,23 +39,41 @@ class AdmsSendEmail
         return $this->result;
     }
 
-    public function sendEmail(): void
+    /**
+     * @return string Retorna o e-mail do remetente
+     */
+    function getFromEmail(): string
     {
-        $this->dataInfoEmail['host'] = "smtp.mailtrap.io";
-        $this->dataInfoEmail['fromEmail'] = "atendimento@celke.com.br";
-        $this->fromEmail = $this->dataInfoEmail['fromEmail'];
-        $this->dataInfoEmail['fromName'] = "Celke";
-        $this->dataInfoEmail['username'] = "ed12dd02941308";
-        $this->dataInfoEmail['password'] = "3c0bf6100311cd";
-        $this->dataInfoEmail['port'] = 587;
+        return $this->fromEmail;
+    }
 
-        $this->data['toEmail'] = "cesar@celke.com.br";
-        $this->data['toName'] = "Cesar";
-        $this->data['subject'] = "Confirma e-mail";
-        $this->data['contentHtml'] = "Olá <b>Cesar</b><br><p>Cadastro realizado com sucesso!</p>";
-        $this->data['contentText'] = "Olá Cesar \n\nCadastro realizado com sucesso!";
+    public function sendEmail(array $data, int $optionConfEmail): void
+    {
+        $this->optionConfEmail = $optionConfEmail;
+        $this->data = $data;
 
-        $this->sendEmailPhpMailer();
+        $this->infoPhpMailer();
+    }
+
+    private function infoPhpMailer(): void
+    {
+        $confEmail = new \App\adms\Models\helper\AdmsRead();
+        $confEmail->fullRead("SELECT name, email, host, username, password, smtpsecure, port FROM adms_confs_emails WHERE id =:id LIMIT :limit", "id={$this->optionConfEmail}&limit=1");
+        $this->resultBd = $confEmail->getResult();
+        if ($this->resultBd) {
+            $this->dataInfoEmail['host'] = $this->resultBd[0]['host'];
+            $this->dataInfoEmail['fromEmail'] = $this->resultBd[0]['email'];
+            $this->fromEmail = $this->dataInfoEmail['fromEmail'];
+            $this->dataInfoEmail['fromName'] = $this->resultBd[0]['name'];
+            $this->dataInfoEmail['username'] = $this->resultBd[0]['username'];
+            $this->dataInfoEmail['password'] = $this->resultBd[0]['password'];
+            $this->dataInfoEmail['smtpsecure'] = $this->resultBd[0]['smtpsecure'];
+            $this->dataInfoEmail['port'] = $this->resultBd[0]['port'];
+
+            $this->sendEmailPhpMailer();
+        } else {
+            $this->result = false;
+        }
     }
 
     private function sendEmailPhpMailer(): void
@@ -64,7 +88,7 @@ class AdmsSendEmail
             $mail->SMTPAuth   = true;
             $mail->Username   = $this->dataInfoEmail['username'];
             $mail->Password   = $this->dataInfoEmail['password'];
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->SMTPSecure = $this->dataInfoEmail['smtpsecure'];
             $mail->Port       = $this->dataInfoEmail['port'];
 
             $mail->setFrom($this->dataInfoEmail['fromEmail'], $this->dataInfoEmail['fromName']);

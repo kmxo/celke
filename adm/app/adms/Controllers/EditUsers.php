@@ -36,10 +36,12 @@ class EditUsers
           $viewUser->viewUser($this->id);
           if($viewUser->getResult()){
             $this->data['form'] = $viewUser->getResultBd();
-            echo "<pre>";
-            //var_dump($this->data['form'][0]['email']);
-            var_dump($this->data['form']);
-            echo "</pre>";
+            // echo "<pre>";
+            // var_dump($this->data['form'][0]['email']);
+            // var_dump($this->data['form']);
+            // echo "</pre>";
+            $this->viewEditUser();
+
           } else {
             $urlRedirect = URLADM . "list-users/index";
             header("Location: $urlRedirect");
@@ -60,7 +62,7 @@ class EditUsers
      */
     private function viewEditUser(): void
     {
-        $loadView = new \Core\ConfigView("adms/Views/users/addUser", $this->data);
+        $loadView = new \Core\ConfigView("adms/Views/users/editUser", $this->data);
         $loadView->loadView();
     }
 }

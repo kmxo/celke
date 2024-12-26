@@ -36,7 +36,13 @@ class EditUsers
           $viewUser->viewUser($this->id);
           if($viewUser->getResult()){
             $this->data['form'] = $viewUser->getResultBd();
+            echo "<pre>";
+            //var_dump($this->data['form'][0]['email']);
             var_dump($this->data['form']);
+            echo "</pre>";
+          } else {
+            $urlRedirect = URLADM . "list-users/index";
+            header("Location: $urlRedirect");
           }
           //Para visualizar os dados, preciso criar uma model. ex: AdmsEditUsers.php
 

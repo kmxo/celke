@@ -14,7 +14,7 @@ if(isset($_SESSION['msg'])){
 ?>
 <span id="msg"></span>
 
-<form method="POST" action="" id="form-add-user">    
+<form method="POST" action="" id="form-add-user">
     <?php
     $name = "";
     if (isset($valorForm['name'])) {
@@ -23,7 +23,7 @@ if(isset($_SESSION['msg'])){
     ?>
     <label>Nome: </label>
     <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php echo $name; ?>" required><br><br>
-    
+
     <?php
     $email = "";
     if (isset($valorForm['email'])) {
@@ -32,7 +32,7 @@ if(isset($_SESSION['msg'])){
     ?>
     <label>E-mail: </label>
     <input type="email" name="email" id="email" placeholder="Digite o seu melhor e-mail" value="<?php echo $email; ?>" required><br><br>
-    
+
     <?php
     $user = "";
     if (isset($valorForm['user'])) {
@@ -54,4 +54,3 @@ if(isset($_SESSION['msg'])){
 
     <button type="submit" name="SendAddUser" value="Cadastrar">Cadastrar</button>
 </form>
-<p><a href="<?php echo URLADM; ?>">Clique aqui</a> para acessar</p>

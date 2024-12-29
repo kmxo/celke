@@ -1,3 +1,6 @@
+// 1 HTML, 2 JavaScript, 3 PHP
+// Validaçao de campos do Form via Javascript
+
 // Permitir retorno no navegador no formulario apos o erro
 if (window.history.replaceState) {
     window.history.replaceState(null, null, window.location.href);
@@ -33,7 +36,7 @@ function passwordStrength() {
 }
 
 function viewStrength(strength) {
-    // Imprimir a força da senha 
+    // Imprimir a força da senha
     if (strength < 30) {
         document.getElementById("msgViewStrength").innerHTML = "<p style='color: #f00;'>Senha Fraca</p>";
     } else if ((strength >= 30) && (strength < 50)) {
@@ -222,5 +225,38 @@ if (formAddUser) {
             document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: A senha deve ter pelo menos uma letra!</p>";
             return;
         }
+    });
+}
+
+const formEditUser = document.getElementById("form-edit-user");
+if (formEditUser) {
+    formEditUser.addEventListener("submit", async(e) => {
+        //Receber o valor do campo
+        var name = document.querySelector("#name").value;
+        // Verificar se o campo esta vazio
+        if (name === "") {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher o campo nome!</p>";
+            return;
+        }
+
+        //Receber o valor do campo
+        var email = document.querySelector("#email").value;
+        // Verificar se o campo esta vazio
+        if (email === "") {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher o campo e-mail!</p>";
+            return;
+        }
+
+        //Receber o valor do campo
+        var user = document.querySelector("#user").value;
+        // Verificar se o campo esta vazio
+        if (user === "") {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher o campo usuário!</p>";
+            return;
+        }
+
     });
 }

@@ -32,18 +32,18 @@ class AdmsValEmailSingle
         return $this->result;
     }
 
-    /** 
+    /**
      * Validar o e-mail único.
      * Recebe o e-mail que deve ser verificado se o mesmo já está cadastrado no banco de dados.
      * Acessa o IF quando estiver validando o e-mail para o formulário editar.
      * Acessa o ELSE quando estiver validando o e-mail para o formulário cadastrar.
      * Retorna TRUE quando não encontrar outro nenhum usuário utilizando o e-mail em questão.
      * Retorna FALSE quando o e-mail já está sendo utilizado por outro usuário.
-     * 
+     *
      * @param string $email Recebe o e-mail que deve ser validado.
-     * @param bool|null $edit Recebe TRUE quando deve validar o e-mail para formulário editar.
-     * @param int|null $id Recebe o ID do usuário quando deve validar o e-mail para formulário editar.
-     * 
+     * @param bool|null $edit Recebe TRUE quando deve validar o e-mail para formulário de edição
+     * @param int|null $id Recebe o ID do usuário quando deve validar o e-mail para formulário de edição
+     *
      * @return void
      */
     public function validateEmailSingle(string $email, bool|null $edit = null, int|null $id = null): void
@@ -54,7 +54,8 @@ class AdmsValEmailSingle
 
         $valEmailSingle = new \App\adms\Models\helper\AdmsRead();
         if(($this->edit == true) and (!empty($this->id))){
-            $valEmailSingle->fullRead("SELECT id FROM adms_users WHERE email =:email id <>:id LIMIT :limit", "email={$this->email}&id={$this->id}&limit=1");
+            //Id <>:id para ignorar o email do próprio usuario
+            $valEmailSingle->fullRead("SELECT id FROM adms_users WHERE (email =:email OR user =:user) AND id <>:id LIMIT :limit", "email={$this->email}&user={$this->email}&id={$this->id}&limit=1");
         }else{
             $valEmailSingle->fullRead("SELECT id FROM adms_users WHERE email =:email LIMIT :limit", "email={$this->email}&limit=1");
         }

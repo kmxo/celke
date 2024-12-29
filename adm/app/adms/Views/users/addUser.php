@@ -21,7 +21,7 @@ if(isset($_SESSION['msg'])){
         $name = $valorForm['name'];
     }
     ?>
-    <label>Nome: </label>
+    <label>Nome:<span style="color: #f00;">*</span> </label>
     <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php echo $name; ?>" required><br><br>
 
     <?php
@@ -30,7 +30,7 @@ if(isset($_SESSION['msg'])){
         $email = $valorForm['email'];
     }
     ?>
-    <label>E-mail: </label>
+    <label>E-mail:<span style="color: #f00;">*</span> </label>
     <input type="email" name="email" id="email" placeholder="Digite o seu melhor e-mail" value="<?php echo $email; ?>" required><br><br>
 
     <?php
@@ -39,7 +39,7 @@ if(isset($_SESSION['msg'])){
         $user = $valorForm['user'];
     }
     ?>
-    <label>Usuário: </label>
+    <label>Usuário:<span style="color: #f00;">*</span> </label>
     <input type="text" name="user" id="user" placeholder="Digite o usuário para acessar o administrativo" value="<?php echo $user; ?>" required><br><br>
 
     <?php
@@ -48,7 +48,7 @@ if(isset($_SESSION['msg'])){
         $password = $valorForm['password'];
     }
     ?>
-    <label>Senha: </label>
+    <label>Senha:<span style="color: #f00;">*</span> </label>
     <input type="password" name="password" id="password" placeholder="Digite a senha" onkeyup="passwordStrength()" autocomplete="on" value="<?php echo $password; ?>" required>
     <span id="msgViewStrength"><br><br></span>
 

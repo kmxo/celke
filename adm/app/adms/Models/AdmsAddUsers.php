@@ -23,14 +23,14 @@ class AdmsAddUsers
         return $this->result;
     }
 
-    /** 
+    /**
      * Recebe os valores do formulário.
-     * Instancia o helper "AdmsValEmptyField" para verificar se todos os campos estão preenchidos 
+     * Instancia o helper "AdmsValEmptyField" para verificar se todos os campos estão preenchidos
      * Verifica se todos os campos estão preenchidos e instancia o método "valInput" para validar os dados dos campos
      * Retorna FALSE quando algum campo está vazio
-     * 
+     *
      * @param array $data Recebe as informações do formulário
-     * 
+     *
      * @return void
      */
     public function create(array $data = null)
@@ -46,14 +46,14 @@ class AdmsAddUsers
         }
     }
 
-    /** 
+    /**
      * Instanciar o helper "AdmsValEmail" para verificar se o e-mail válido
      * Instanciar o helper "AdmsValEmailSingle" para verificar se o e-mail não está cadastrado no banco de dados, não permitido cadastro com e-mail duplicado
      * Instanciar o helper "validatePassword" para validar a senha
      * Instanciar o helper "validateUserSingleLogin" para verificar se o usuário não está cadastrado no banco de dados, não permitido cadastro com usuário duplicado
-     * Instanciar o método "add" quando não houver nenhum erro de preenchimento 
+     * Instanciar o método "add" quando não houver nenhum erro de preenchimento
      * Retorna FALSE quando houve algum erro
-     * 
+     *
      * @return void
      */
     private function valInput(): void
@@ -68,7 +68,7 @@ class AdmsAddUsers
         $valPassword->validatePassword($this->data['password']);
 
         $valUserSingleLogin = new \App\adms\Models\helper\AdmsValUserSingle();
-        $valUserSingleLogin->validateUserSingleLogin($this->data['user']);
+        $valUserSingleLogin->validateUserSingle($this->data['user']);
 
         if (($valEmail->getResult()) and ($valEmailSingle->getResult()) and ($valPassword->getResult()) and ($valUserSingleLogin->getResult())) {
             $this->add();
@@ -77,11 +77,11 @@ class AdmsAddUsers
         }
     }
 
-    /** 
+    /**
      * Cadastrar usuário no banco de dados
      * Retorna TRUE quando cadastrar o usuário com sucesso
      * Retorna FALSE quando não cadastrar o usuário
-     * 
+     *
      * @return void
      */
     private function add(): void

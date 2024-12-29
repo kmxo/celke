@@ -62,9 +62,9 @@ class AdmsEditUsers
   public function update(array $data = null): void
   {
     $this->data = $data;
-    echo "<pre>";
-    var_dump($this->data);
-    echo "</pre>";
+    // echo "<pre>";
+    // var_dump($this->data);
+    // echo "</pre>";
     $valEmptyField = new \App\adms\Models\helper\AdmsValEmptyField();
     $valEmptyField->valField($this->data);
     if ($valEmptyField->getResult()) {
@@ -90,16 +90,15 @@ class AdmsEditUsers
       $valEmail = new \App\adms\Models\helper\AdmsValEmail();
       $valEmail->validateEmail($this->data['email']);
 
-      // $valEmailSingle = new \App\adms\Models\helper\AdmsValEmailSingle();
-      // $valEmailSingle->validateEmailSingle($this->data['email']);
+      $valEmailSingle = new \App\adms\Models\helper\AdmsValEmailSingle();
+      $valEmailSingle->validateEmailSingle($this->data['email'], true, $this->data['id']);
 
-      // $valPassword = new \App\adms\Models\helper\AdmsValPassword();
-      // $valPassword->validatePassword($this->data['password']);
-      //
-      // $valUserSingleLogin = new \App\adms\Models\helper\AdmsValUserSingle();
-      // $valUserSingleLogin->validateUserSingleLogin($this->data['user']);
+      $valUserSingle = new \App\adms\Models\helper\AdmsValUserSingle();
+      $valUserSingle->validateUserSingle($this->data['user'], true, $this->data['id']);
 
-      if (($valEmail->getResult())) {
+
+
+      if (($valEmail->getResult()) and ($valEmailSingle->getResult()) and ($valUserSingle->getResult())) {
           $this->edit();
       } else {
           $this->result = false;

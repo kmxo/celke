@@ -44,8 +44,8 @@ if(isset($_SESSION['msg'])){
         $name = $valorForm['name'];
     }
     ?>
-    <label>Nome: </label>
-    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php echo $name; ?>" ><br><br>
+    <label>Nome:<span style="color: #f00;">*</span> </label>
+    <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php echo $name; ?>" required><br><br>
 
     <?php
     $nickname = "";
@@ -53,7 +53,7 @@ if(isset($_SESSION['msg'])){
         $nickname = $valorForm['nickname'];
     }
     ?>
-    <label>Nickname: </label>
+    <label>Nickname:<span style="color: #f00;">*</span> </label>
     <input type="text" name="nickname" id="nickname" placeholder="Digite o apelido" value="<?php echo $nickname; ?>" ><br><br>
 
 
@@ -63,8 +63,8 @@ if(isset($_SESSION['msg'])){
         $email = $valorForm['email'];
     }
     ?>
-    <label>E-mail: </label>
-    <input type="text" name="email" id="email" placeholder="Digite o seu melhor e-mail" value="<?php echo $email; ?>" ><br><br>
+    <label>E-mail:<span style="color: #f00;">*</span> </label>
+    <input type="email" name="email" id="email" placeholder="Digite o seu melhor e-mail" value="<?php echo $email; ?>" required><br><br>
 
     <?php
     $user = "";
@@ -72,8 +72,8 @@ if(isset($_SESSION['msg'])){
         $user = $valorForm['user'];
     }
     ?>
-    <label>Usuário: </label>
-    <input type="text" name="user" id="user" placeholder="Digite o usuário para acessar o administrativo" value="<?php echo $user; ?>" ><br><br>
+    <label>Usuário:<span style="color: #f00;">*</span> </label>
+    <input type="text" name="user" id="user" placeholder="Digite o usuário para acessar o administrativo" value="<?php echo $user; ?>" required><br><br>
 
 
 

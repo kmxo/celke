@@ -16,7 +16,7 @@ abstract class Config
      * Página principal do projeto.
      * Credenciais de acesso ao banco de dados
      * E-mail do administrador.
-     * 
+     *
      * @return void
      */
     protected function configAdm(): void

@@ -70,21 +70,19 @@ class AdmsEditUsers
 
     $this->data = $data;
 
-    if ($debug) {
-      echo "<pre>";
+    if ($debug){
+      echo '<pre>';
       var_dump($this->data);
-      echo "</pre>";
+      echo '</pre>';
     }
-
-
     //Retirando o campo nickname da validacao
     $this->dataExitVal['nickname'] = $this->data['nickname'];
     unset($this->data['nickname']);
 
-    if ($debug) {
-      echo "<pre>";
+    if ($debug){
+      echo '<pre>';
       var_dump($this->data);
-      echo "</pre>";
+      echo '</pre>';
     }
 
     $valEmptyField = new \App\adms\Models\helper\AdmsValEmptyField();

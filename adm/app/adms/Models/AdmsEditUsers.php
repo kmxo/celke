@@ -21,6 +21,9 @@ class AdmsEditUsers
   /** @var array|null $data Recebe as informações do formulário */
   private array|null $data;
 
+  /** @var array|null $data Recebe os campos que devem ser retirados da validação */
+  private array|null $dataExitVal;
+
   /**
    * @return bool Retorna true quando executar o processo com sucesso e false quando houver erro
    */
@@ -61,15 +64,40 @@ class AdmsEditUsers
 
   public function update(array $data = null): void
   {
+    //debug = true, para o processamento e exibe var_dump
+    //debug = false, nao mostra var_dump e atualiza registro em banco de dados.
+    $debug = false;
+
     $this->data = $data;
-    // echo "<pre>";
-    // var_dump($this->data);
-    // echo "</pre>";
+
+    if ($debug) {
+      echo "<pre>";
+      var_dump($this->data);
+      echo "</pre>";
+    }
+
+
+    //Retirando o campo nickname da validacao
+    $this->dataExitVal['nickname'] = $this->data['nickname'];
+    unset($this->data['nickname']);
+
+    if ($debug) {
+      echo "<pre>";
+      var_dump($this->data);
+      echo "</pre>";
+    }
+
     $valEmptyField = new \App\adms\Models\helper\AdmsValEmptyField();
     $valEmptyField->valField($this->data);
     if ($valEmptyField->getResult()) {
+
+      if ($debug) {
+        $this->result = false;
+      } else {
         $this->valInput();
-        //$this->result = true;
+        $this->result = true;
+      }
+
     } else {
         $this->result = false;
     }
@@ -108,6 +136,10 @@ class AdmsEditUsers
   private function edit(): void
   {
     $this->data['modified'] = date("Y-m-d H:i:s");
+
+    //Nickname foi retirado da validacao. Devolvendo ao array para gravar no registro.
+    $this->data['nickname'] = $this->dataExitVal['nickname'];
+
     $upUser = new \App\adms\Models\helper\AdmsUpdate();
     $upUser->exeUpdate("adms_users", $this->data, "WHERE id=:id", "id={$this->data['id']}");
 

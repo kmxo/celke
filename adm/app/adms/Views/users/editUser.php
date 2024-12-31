@@ -53,7 +53,7 @@ if(isset($_SESSION['msg'])){
         $nickname = $valorForm['nickname'];
     }
     ?>
-    <label>Nickname:<span style="color: #f00;">*</span> </label>
+    <label>Nickname: </label>
     <input type="text" name="nickname" id="nickname" placeholder="Digite o apelido" value="<?php echo $nickname; ?>" ><br><br>
 
 

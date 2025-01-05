@@ -2,9 +2,9 @@
 
 namespace App\adms\Controllers;
 
-/**
- * Controller da página editar senha do usuário
- * @author Cesar <cesar@celke.com.br>
+/*
+Controller da página editar senha do usuário
+
  Para criar a funcionalidade Editar Senha do Usuario eu
  1 Criei essa Controller
  2 Em CarregarPgAdm, colocar essa pagina na lista de paginas privadas
@@ -47,7 +47,7 @@ class EditUsersPassword
       //Recebe os dados vindos do formulario
       $this->dataForm = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-      if ((!empty($id)) and (empty($this->dataForm['SendEditUser']))) {
+      if ((!empty($id)) and (empty($this->dataForm['SendEditUserPass']))) {
           $this->id = (int) $id;
           $viewUserPass = new \App\adms\Models\AdmsEditUsersPassword();
           $viewUserPass->viewUser($this->id);
@@ -69,7 +69,7 @@ class EditUsersPassword
           /*$_SESSION['msg'] = "<p style='color: #f00;'>Erro: Usuário não encontrado!</p>";
           $urlRedirect = URLADM . "list-users/index";
           header("Location: $urlRedirect");*/
-          $this->editUser();
+          $this->editUserPass();
 
       }
 
@@ -85,7 +85,7 @@ class EditUsersPassword
         $loadView->loadView();
     }
 
-    private function editUser(): void
+    private function editUserPass(): void
     {
       // echo "<pre>";
       // var_dump($this->dataForm);

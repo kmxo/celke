@@ -45,13 +45,11 @@ class AdmsEditUsersPassword
       $this->id = $id;
 
       $viewUser = new \App\adms\Models\helper\AdmsRead();
-      $viewUser->fullRead(
-          "SELECT id
-                          FROM adms_users
-                          WHERE id=:id
-                          LIMIT :limit",
-          "id={$this->id}&limit=1"
-      );
+      $viewUser->fullRead("SELECT usr.id
+                            FROM adms_users AS usr
+                            INNER JOIN adms_access_levels AS lev ON lev.id=usr.adms_access_level_id
+                            WHERE usr.id=:id AND lev.order_levels >:order_levels
+                            LIMIT :limit", "id={$this->id}&order_levels=" . $_SESSION['order_levels'] . "&limit=1");
 
       $this->resultBd = $viewUser->getResult();
       if ($this->resultBd) {
@@ -64,35 +62,12 @@ class AdmsEditUsersPassword
 
   public function update(array $data = null): void
   {
-    //debug = true, para o processamento e exibe var_dump
-    //debug = false, nao mostra var_dump e atualiza registro em banco de dados.
-    $debug = false;
-
     $this->data = $data;
-
-    if ($debug){
-      echo '<pre>';
-      var_dump($this->data);
-      echo '</pre>';
-    }
-
-    if ($debug){
-      echo '<pre>';
-      var_dump($this->data);
-      echo '</pre>';
-    }
 
     $valEmptyField = new \App\adms\Models\helper\AdmsValEmptyField();
     $valEmptyField->valField($this->data);
     if ($valEmptyField->getResult()) {
-
-      if ($debug) {
-        $this->result = false;
-      } else {
         $this->valInput();
-        $this->result = true;
-      }
-
     } else {
         $this->result = false;
     }

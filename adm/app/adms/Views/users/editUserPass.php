@@ -45,8 +45,8 @@ if(isset($_SESSION['msg'])){
     }
     ?>
     <label>Senha:<span style="color: #f00;">*</span> </label>
-    <input type="password" name="password" id="password" onkeyup="passwordStrength()" autocomplete="on" placeholder="Digite a nova senha" value="<?php echo $password; ?>" required><br><br>
-    <span id="msgViewStrength"><br><br></span>
+    <input type="password" name="password" id="password" placeholder="Digite a senha" onkeyup="passwordStrength()" autocomplete="on" value="<?php echo $password; ?>" required>
+    <span id="msgViewStrength"></span>
 
     <label><span style="color: #f00;">* Campo Obrigatório</span> </label><br><br>
 

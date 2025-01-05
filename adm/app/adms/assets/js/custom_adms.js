@@ -260,3 +260,36 @@ if (formEditUser) {
 
     });
 }
+
+const formEditUserPass = document.getElementById("form-edit-user-pass");
+if (formEditUserPass) {
+    formEditUserPass.addEventListener("submit", async(e) => {
+
+        //Receber o valor do campo
+        var password = document.querySelector("#password").value;
+        // Verificar se o campo esta vazio
+        if (password === "") {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher o campo senha JS!</p>";
+            return;
+        }
+        // Verificar se o campo senha possui 6 caracteres
+        if (password.length < 6) {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: A senha deve ter no mínimo 6 caracteres!</p>";
+            return;
+        }
+        // Verificar se o campo senha não possui números repetidos
+        if (password.match(/([1-9]+)\1{1,}/)) {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: A senha não deve ter número repetido!</p>";
+            return;
+        }
+        // Verificar se o campo senha possui letras
+        if (!password.match(/[A-Za-z]/)) {
+            e.preventDefault();
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: A senha deve ter pelo menos uma letra!</p>";
+            return;
+        }
+    });
+}

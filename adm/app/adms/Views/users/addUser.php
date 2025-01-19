@@ -14,7 +14,7 @@ if(isset($_SESSION['msg'])){
 ?>
 <span id="msg"></span>
 
-<form method="POST" action="" id="form-add-user">
+<form method="POST" action="" id="form-add-user">    
     <?php
     $name = "";
     if (isset($valorForm['name'])) {
@@ -23,7 +23,7 @@ if(isset($_SESSION['msg'])){
     ?>
     <label>Nome:<span style="color: #f00;">*</span> </label>
     <input type="text" name="name" id="name" placeholder="Digite o nome completo" value="<?php echo $name; ?>" required><br><br>
-
+    
     <?php
     $email = "";
     if (isset($valorForm['email'])) {
@@ -32,7 +32,7 @@ if(isset($_SESSION['msg'])){
     ?>
     <label>E-mail:<span style="color: #f00;">*</span> </label>
     <input type="email" name="email" id="email" placeholder="Digite o seu melhor e-mail" value="<?php echo $email; ?>" required><br><br>
-
+    
     <?php
     $user = "";
     if (isset($valorForm['user'])) {
@@ -51,6 +51,8 @@ if(isset($_SESSION['msg'])){
     <label>Senha:<span style="color: #f00;">*</span> </label>
     <input type="password" name="password" id="password" placeholder="Digite a senha" onkeyup="passwordStrength()" autocomplete="on" value="<?php echo $password; ?>" required>
     <span id="msgViewStrength"><br><br></span>
+
+    <span style="color: #f00;">* Campo Obrigatório</span><br><br>
 
     <button type="submit" name="SendAddUser" value="Cadastrar">Cadastrar</button>
 </form>

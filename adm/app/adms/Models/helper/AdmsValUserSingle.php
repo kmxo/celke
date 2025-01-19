@@ -31,19 +31,19 @@ class AdmsValUserSingle
     {
         return $this->result;
     }
-
-    /**
+    
+    /** 
      * Validar o usuário único.
      * Recebe o usuário que deve ser verificado se o mesmo já está cadastrado no banco de dados.
      * Acessa o IF quando estiver validando o usuário para o formulário editar.
      * Acessa o ELSE quando estiver validando o usuário para o formulário cadastrar.
      * Retorna TRUE quando não encontrar outro nenhum usuário utilizando o usuário em questão.
      * Retorna FALSE quando o usuário já está sendo utilizado por outro usuário.
-     *
+     * 
      * @param string $usuário Recebe o usuário que deve ser validado.
      * @param bool|null $edit Recebe TRUE quando deve validar o usuário para formulário editar.
      * @param int|null $id Recebe o ID do usuário quando deve validar o usuário para formulário editar.
-     *
+     * 
      * @return void
      */
     public function validateUserSingle(string $user, bool|null $edit = null, int|null $id = null): void
@@ -54,7 +54,7 @@ class AdmsValUserSingle
 
         $valUserSingle = new \App\adms\Models\helper\AdmsRead();
         if(($this->edit == true) and (!empty($this->id))){
-            $valUserSingle->fullRead("SELECT id FROM adms_users WHERE (email =:email OR user =:user) AND id <>:id LIMIT :limit", "email={$this->user}&user={$this->user}&id={$this->id}&limit=1");
+            $valUserSingle->fullRead("SELECT id FROM adms_users WHERE (user =:user OR email =:email) AND id <>:id LIMIT :limit", "user={$this->user}&email={$this->user}&id={$this->id}&limit=1");
         }else{
             $valUserSingle->fullRead("SELECT id FROM adms_users WHERE user =:user LIMIT :limit", "user={$this->user}&limit=1");
         }
@@ -63,7 +63,7 @@ class AdmsValUserSingle
         if(!$this->resultBd){
             $this->result = true;
         }else{
-            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Este usuário já está cadastrado!</p>";
+            $_SESSION['msg'] = "<p style='color: #f00;'>Erro: Este usuários já está cadastrado!</p>";
             $this->result = false;
         }
     }

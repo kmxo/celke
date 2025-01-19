@@ -1,6 +1,3 @@
-// 1 HTML, 2 JavaScript, 3 PHP
-// Validaçao de campos do Form via Javascript
-
 // Permitir retorno no navegador no formulario apos o erro
 if (window.history.replaceState) {
     window.history.replaceState(null, null, window.location.href);
@@ -36,7 +33,7 @@ function passwordStrength() {
 }
 
 function viewStrength(strength) {
-    // Imprimir a força da senha
+    // Imprimir a força da senha 
     if (strength < 30) {
         document.getElementById("msgViewStrength").innerHTML = "<p style='color: #f00;'>Senha Fraca</p>";
     } else if ((strength >= 30) && (strength < 50)) {
@@ -257,7 +254,6 @@ if (formEditUser) {
             document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher o campo usuário!</p>";
             return;
         }
-
     });
 }
 
@@ -270,7 +266,7 @@ if (formEditUserPass) {
         // Verificar se o campo esta vazio
         if (password === "") {
             e.preventDefault();
-            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher o campo senha JS!</p>";
+            document.getElementById("msg").innerHTML = "<p style='color: #f00;'>Erro: Necessário preencher o campo senha!</p>";
             return;
         }
         // Verificar se o campo senha possui 6 caracteres

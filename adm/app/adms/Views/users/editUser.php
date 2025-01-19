@@ -2,14 +2,10 @@
 if (isset($this->data['form'])) {
     $valorForm = $this->data['form'];
 }
+
 if (isset($this->data['form'][0])) {
     $valorForm = $this->data['form'][0];
 }
-
-// echo "<pre>";
-// var_dump($this->data['form']); //var_dump($this->data['form'][0]['email']);
-// echo "</pre>";
-
 ?>
 
 <h1>Editar Usuário</h1>
@@ -18,10 +14,10 @@ if (isset($this->data['form'][0])) {
 
 echo "<a href='" . URLADM . "list-users/index'>Listar</a><br>";
 if (isset($valorForm['id'])) {
-  echo "<a href='" . URLADM . "view-users/index/" . $valorForm['id'] . "'>Visualizar</a><br><br>";
+    echo "<a href='" . URLADM . "view-users/index/" . $valorForm['id'] . "'>Visualizar</a><br><br>";
 }
 
-if(isset($_SESSION['msg'])){
+if (isset($_SESSION['msg'])) {
     echo $_SESSION['msg'];
     unset($_SESSION['msg']);
 }
@@ -29,7 +25,6 @@ if(isset($_SESSION['msg'])){
 <span id="msg"></span>
 
 <form method="POST" action="" id="form-edit-user">
-
     <?php
     $id = "";
     if (isset($valorForm['id'])) {
@@ -53,9 +48,8 @@ if(isset($_SESSION['msg'])){
         $nickname = $valorForm['nickname'];
     }
     ?>
-    <label>Nickname: </label>
+    <label>Apelido: </label>
     <input type="text" name="nickname" id="nickname" placeholder="Digite o apelido" value="<?php echo $nickname; ?>" ><br><br>
-
 
     <?php
     $email = "";
@@ -75,7 +69,7 @@ if(isset($_SESSION['msg'])){
     <label>Usuário:<span style="color: #f00;">*</span> </label>
     <input type="text" name="user" id="user" placeholder="Digite o usuário para acessar o administrativo" value="<?php echo $user; ?>" required><br><br>
 
-
+    <span style="color: #f00;">* Campo Obrigatório</span><br><br>
 
     <button type="submit" name="SendEditUser" value="Salvar">Salvar</button>
 </form>
